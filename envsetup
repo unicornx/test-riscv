@@ -1,0 +1,24 @@
+# Please manually configure following PATH variables
+
+PATH_QEMU_BIN=/home/u/ws/test-qemu/install/bin
+if [ ! -f $PATH_QEMU_BIN/qemu-system-riscv64 ]; then
+   echo "Make sure PATH_QEMU_BIN points to the correct path where qemu binaries are installed."
+   echo "PATH_QEMU_BIN is: $PATH_QEMU_BIN"
+   exit 1
+fi
+
+PATH_KERNEL=/home/u/ws/kernel_aosp/common/arch/riscv/boot/Image
+if [ ! -f $PATH_KERNEL ]; then
+    echo "Make sure PATH_KERNEL points to the correct path where kenrel image is installed."
+    echo "PATH_KERNEL is: $PATH_KERNEL"
+    exit 1
+fi
+
+PATH_BUSYBOX_INSTALL=/home/u/ws/test-rootfs/busyboxsource/_install
+if [ ! -f $PATH_BUSYBOX_INSTALL/bin/busybox ]; then
+    echo "Make sure PATH_BUSYBOX_INSTALL points to the correct path where busybox binaries are installed."
+    echo "PATH_BUSYBOX_INSTALL is: $PATH_BUSYBOX_INSTALL"
+    exit 1
+fi
+
+export PATH="$PATH_QEMU_BIN:$PATH"
