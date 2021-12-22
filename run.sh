@@ -1,10 +1,10 @@
 #!/bin/bash
 
-PATH_PRJ=`pwd`
-
-source $PATH_PRJ/envsetup
-
-PATH_OUT=$PATH_PRJ/out
+if [ ! -f ./envsetup ]; then
+    echo "Please double-check your working path."
+    exit 1
+fi
+source ./envsetup
 
 PATH_ROOTFS=$PATH_OUT/rootfs.img
 
@@ -13,7 +13,7 @@ if [ ! -f $PATH_ROOTFS ]; then
    exit 1
 fi
 
-qemu-system-riscv64 -M virt -m 256M -nographic \
+qemu-system-riscv64 -M virt -m 512M -nographic \
     -kernel ${PATH_KERNEL} \
     -drive file=${PATH_ROOTFS},format=raw,id=hd0 \
     -device virtio-blk-device,drive=hd0 \
