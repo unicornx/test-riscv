@@ -16,6 +16,9 @@ PATH_TEST_BIONIC=$PATH_PRJ/bionic/target
 mkdir -p $PATH_OUT
 
 rm -f $PATH_OUT/rootfs.img
+echo "$PATH_OUT/rootfs.img is removed!"
+echo ""
+
 qemu-img create $PATH_OUT/rootfs.img 1g
 chmod 666 $PATH_OUT/rootfs.img
 mkfs.ext4 $PATH_OUT/rootfs.img
@@ -23,7 +26,8 @@ mkdir -p $PATH_OUT/rootfs
 mount -o loop $PATH_OUT/rootfs.img  $PATH_OUT/rootfs
 cd $PATH_OUT/rootfs \
    && cp -r $PATH_BUSYBOX_INSTALL/* . \
-   && mkdir -p proc sys dev etc etc/init.d \
+   && mkdir -p system proc sys dev etc etc/init.d \
+   && cp -r ./bin ./system \
    && mkdir -p data/local/tmp \
    && cp -r $PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_DATA . \
    && mkdir -p tests/bionic \
@@ -43,3 +47,5 @@ chmod +x $PATH_OUT/rootfs/etc/init.d/rcS
 
 umount $PATH_OUT/rootfs
 rmdir $PATH_OUT/rootfs
+
+echo "$PATH_OUT/rootfs.img is created!"

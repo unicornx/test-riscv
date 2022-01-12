@@ -19,8 +19,11 @@ if [ ! -f $PATH_OUT/rootfs.img ]; then
 fi
 
 rm -rf $PATH_OUT/rootfs_dump
+echo "$PATH_OUT/rootfs_dump is removed!"
+
 mkdir -p $PATH_OUT/rootfs
 mount -o loop $PATH_OUT/rootfs.img  $PATH_OUT/rootfs
 cp -r $PATH_OUT/rootfs $PATH_OUT/rootfs_dump
 umount $PATH_OUT/rootfs
 rmdir $PATH_OUT/rootfs
+echo "$PATH_OUT/rootfs.img has been dumped into $PATH_OUT/rootfs_dump"
