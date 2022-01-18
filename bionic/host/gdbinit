@@ -9,11 +9,17 @@ set sysroot /home/u/ws/dev-aosp12/aosp-riscv/out/target/product/generic_riscv64/
 set solib-search-path /home/u/ws/dev-aosp12/aosp-riscv/out/target/product/generic_riscv64/symbols/system/lib64/
 dir /home/u/ws/dev-aosp12/aosp-riscv
 
+#set detach-on-fork off
 
-# set breakpoints below
-set detach-on-fork off
-b bionic/tests/stdio_test.cpp:941
-b bionic/libc/stdio/stdio.cpp:1213
+# set breakpoints below ......
+#b bionic/tests/clang_fortify_tests.cpp:144
+#b bionic/tests/glob_test.cpp:245
+#b bionic/tests/time_test.cpp:115
+#b bionic/tests/sys_ptrace_test.cpp:229
+#b bionic/tests/sys_ptrace_test.cpp:180
+b bionic/tests/pthread_test.cpp:2640
+
+#b bionic/libc/stdio/stdio.cpp:1213
 #b bionic/libc/bionic/spawn.cpp:170
 #b vfork
 #b _start_main

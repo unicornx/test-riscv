@@ -6,10 +6,6 @@ PATH_TESTBIN=/data/nativetest64/bionic-unit-tests-static/bionic-unit-tests-stati
 # but leave those cases may fail running or crash
 PATTERNS="\
 -\
-:clang_fortify_test_1_DeathTest.string:clang_fortify_test_2_DeathTest.string\
-:glob.glob_globbing_rsc\
-:pthread.big_enough_signal_stack\
-:time.timer_settime_0:time.timer_settime_repeats:time.timer_create_multiple:time.timer_disarm_terminates:time.timer_delete_terminates\
 :fenv.feenableexcept_fegetexcept\
 :string_nofortify.memcpy:string_nofortify.memset:string_nofortify.memmove:string_nofortify.bcopy:string_nofortify.strlcat_overread:string_nofortify.strcat_overread\
 :string.memcpy:string.memset:string.memmove:string.bcopy:string.strlcat_overread:string.strcat_overread\

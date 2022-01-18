@@ -7,4 +7,6 @@ PATH_BIN=$BASE_DIR/../../../../out/target/product/generic_riscv64/symbols/data/n
 
 GTEST_FILTER=$1
 
+# we have to use --no_isolate on host due to we lack the same rootfs env as that on target
 qemu-riscv64 $PATH_BIN --no_isolate --gtest_filter=$GTEST_FILTER
+
