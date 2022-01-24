@@ -1,0 +1,33 @@
+if [ ! -d $PATH_LINKERCONFIG ]; then
+    echo "$PATH_LINKERCONFIG does not exist, create it."
+    mkdir -p $PATH_LINKERCONFIG
+fi
+
+if [ -f $PATH_LD_CONFIG_TXT ]; then
+    echo "$PATH_LD_CONFIG_TXT already exist!!!"
+else
+    echo "$PATH_LD_CONFIG_TXT does not exist, create it."
+    touch $PATH_LD_CONFIG_TXT
+fi
+
+echo "=========="
+
+# see bionic/linker/linker_debug.h for LINKER_VERBOSITY level
+# LD_DEBUG = 0 will disable trace
+# LD_LIBRARY_PATH has the highest priority, we use it to work-around the ld.config.txt 
+if [ $DEBUG = "yes" ]; then
+    echo "debug"
+    qemu-riscv64 \
+        -g 1234 \
+        -L $PATH_SYSROOT \
+        -E LD_DEBUG=0 \
+        -E LD_LIBRARY_PATH=/system/lib64/bootstrap \
+        $COMMAND_QEMU &
+    riscv64-unknown-linux-gnu-gdb $COMMAND_GDB -x ./.gdbinit
+else
+    qemu-riscv64 \
+        -L $PATH_SYSROOT \
+        -E LD_DEBUG=0 \
+        -E LD_LIBRARY_PATH=/system/lib64/bootstrap \
+        $COMMAND_QEMU
+fi

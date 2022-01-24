@@ -28,8 +28,6 @@ PATTERNS="\
 if [ $# -ne 0 ]; then
     PATTERNS=$1
 fi
-#echo $PATTERNS
 
-#$PATH_TESTBIN --no_isolate --gtest_filter=$PATTERNS
 $PATH_TESTBIN --gtest_filter=$PATTERNS
 

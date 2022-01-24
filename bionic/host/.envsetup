@@ -1,0 +1,14 @@
+# default no debug
+DEBUG=no
+
+BASE_DIR=$(cd $(dirname $0); pwd -P)
+
+PATH_SYSROOT=$BASE_DIR/../../../../out/target/product/generic_riscv64/symbols
+
+PATH_LINKERCONFIG=$PATH_SYSROOT/linkerconfig
+PATH_LD_CONFIG_TXT=$PATH_LINKERCONFIG/ld.config.txt
+PATH_LINKER=$PATH_SYSROOT/system/bin/bootstrap/linker64
+PATH_EXE=$PATH_SYSROOT/data/nativetest64/bionic-unit-tests/bionic-unit-tests
+PATH_EXE_STATIC=$PATH_SYSROOT/data/nativetest64/bionic-unit-tests-static/bionic-unit-tests-static
+
+GTEST_FILTER=$1
