@@ -29,5 +29,9 @@ if [ $# -ne 0 ]; then
     PATTERNS=$1
 fi
 
+# we use an empty ld.config.txt, but we use LD_LIBRARY_PATH to help linker
+# to serach for the .so files
+# search /apex/com.android.i18n/lib64/ for libicu.so
+LD_LIBRARY_PATH=/system/lib64/bootstrap:/apex/com.android.i18n/lib64 \
 $PATH_TESTBIN --gtest_filter=$PATTERNS
 

@@ -11,4 +11,9 @@ PATH_LINKER=$PATH_SYSROOT/system/bin/bootstrap/linker64
 PATH_EXE=$PATH_SYSROOT/data/nativetest64/bionic-unit-tests/bionic-unit-tests
 PATH_EXE_STATIC=$PATH_SYSROOT/data/nativetest64/bionic-unit-tests-static/bionic-unit-tests-static
 
+# we use an empty ld.config.txt, but we use LD_LIBRARY_PATH to help linker
+# to serach for the .so files
+# search /apex/com.android.i18n/lib64/ for libicu.so
+ENV_LD_LIBRARY_PATH=/system/lib64/bootstrap:/apex/com.android.i18n/lib64
+
 GTEST_FILTER=$1
