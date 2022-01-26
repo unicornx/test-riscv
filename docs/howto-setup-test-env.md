@@ -9,7 +9,7 @@
 - [3. qemu](#3-qemu)
 - [4. kernel](#4-kernel)
 - [5. rootfs](#5-rootfs)
-- [6. How to use out test tools](#6-how-to-use-out-test-tools)
+- [6. How to use our test tools](#6-how-to-use-our-test-tools)
     - [6.1. Make minimal rootfs for testing](#61-make-minimal-rootfs-for-testing)
     - [6.2. Dump the minimal rootfs](#62-dump-the-minimal-rootfs)
     - [6.3. Launch the minial system with qemu](#63-launch-the-minial-system-with-qemu)
@@ -150,7 +150,7 @@ $ ls out
 rootfs.img
 ```
 
-# 6. How to use out test tools
+# 6. How to use our test tools
 
 
 ## 6.1. Make minimal rootfs for testing
@@ -184,26 +184,33 @@ $ ./run.sh
 
 # 7. Run bionic test.
 
-Read [bionic's README.md](../../../bionic/README.md) first, specially the section "Running the tests".
+Read [bionic's README.md](../../../bionic/README.md) first, specially the 
+section "Running the tests".
 
-Press Enter to acitivate the console and go to testing folder. We provide a run.sh
-script for quick launch for bionic-unit-tests-static, we also disabled isolate 
-mode due to currently there is known issue in `popen()` and this will make the 
-test executable fail to `EnumerateTests()`.
+Press Enter to acitivate the console and go to bionic testing folder. We provide
+scripts for quick launching of bionic tests.
 
 ```
 Please press Enter to activate this console. 
 / # cd tests/bionic/
-/tests/bionic # ls
-run.sh
+```
+
+To run static link version for bionic unit tests
+```
+/tests/bionic # ./bionic-unit-tests-static.sh 
+```
+
+To run dynamic link version for bionic unit tests
+```
+/tests/bionic # ./bionic-unit-tests.sh 
 ```
 
 To test specific suite/cases, run the script with positive/negative pattern. For
-example, if you want to test all cases in suite "unistd" but exclude cases
-"execvpe_ENOEXEC" and "getpid_caching_and_pthread_create" of suite "unistd". 
-You can input as below:
+example, if you want to test all static bionic unit cases in suite "unistd" 
+but exclude cases "execvpe_ENOEXEC" and "getpid_caching_and_pthread_create" of 
+suite "unistd", you can input as below:
 ```
-/tests/bionic # ./run.sh unistd.*-unistd.execvpe_ENOEXEC:unistd.getpid_caching_and_pthread_create
+/tests/bionic # ./bionic-unit-tests-static.sh unistd.*-unistd.execvpe_ENOEXEC:unistd.getpid_caching_and_pthread_create
 ```
 
 For more details on how to use the bionic-unit-tests-static, run:
@@ -211,3 +218,7 @@ For more details on how to use the bionic-unit-tests-static, run:
 /tests/bionic # /data/nativetest64/bionic-unit-tests-static/bionic-unit-tests-static -h
 ```
 
+For more details on how to use the bionic-unit-tests, run:
+```
+/tests/bionic # /data/nativetest64/bionic-unit-tests/bionic-unit-tests -h
+```
