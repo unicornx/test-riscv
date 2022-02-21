@@ -34,7 +34,8 @@ b __linker_init
 #b get_ld_config_file_path
 #b bionic/tests/stdio_test.cpp:941
 #b init_default_namespaces
-b bionic/tests/elftls_test.cpp:52
+#b bionic/tests/elftls_test.cpp:52
+#b bionic/linker/linker_main.cpp:662
 
 
 target remote : 1234

@@ -8,12 +8,15 @@
 - [2. compile tools](#2-compile-tools)
 - [3. qemu](#3-qemu)
 - [4. kernel](#4-kernel)
-- [5. rootfs](#5-rootfs)
+- [5. rootfs (busybox)](#5-rootfs-busybox)
 - [6. How to use our test tools](#6-how-to-use-our-test-tools)
-    - [6.1. Make minimal rootfs for testing](#61-make-minimal-rootfs-for-testing)
-    - [6.2. Dump the minimal rootfs](#62-dump-the-minimal-rootfs)
-    - [6.3. Launch the minial system with qemu](#63-launch-the-minial-system-with-qemu)
-- [7. Run bionic test.](#7-run-bionic-test)
+    - [6.1. Bionic unit tests](#61-bionic-unit-tests)
+        - [6.1.1. Run test on host](#611-run-test-on-host)
+        - [6.1.2. Run test on target](#612-run-test-on-target)
+            - [6.1.2.1. Make minimal rootfs for testing](#6121-make-minimal-rootfs-for-testing)
+            - [6.1.2.2. Dump the minimal rootfs](#6122-dump-the-minimal-rootfs)
+            - [6.1.2.3. Launch the minial system with qemu](#6123-launch-the-minial-system-with-qemu)
+            - [6.1.2.4. Run bionic test.](#6124-run-bionic-test)
 
 <!-- /TOC -->
 
@@ -94,7 +97,7 @@ $ ARCH=riscv ./scripts/kconfig/merge_config.sh arch/riscv/configs/defconfig ../c
 $ make ARCH=riscv CROSS_COMPILE=riscv64-unknown-linux-gnu- -j $(nproc)
 ```
 
-# 5. rootfs
+# 5. rootfs (busybox)
 
 We have provided pre-built busybox binaries under `bin/busybox/_install/`. If 
 you met any problems, please contact us.
@@ -152,8 +155,37 @@ rootfs.img
 
 # 6. How to use our test tools
 
+## 6.1. Bionic unit tests
 
-## 6.1. Make minimal rootfs for testing
+Official aosp test requires aosp system is ready and run test with adb. But till
+now, we have not them available, so we have to setup temporary test environment
+by ourselves. Folllowing are description about how to setup and run.
+
+We have two methods to run bionic tests:
+- Run on host: use qemu user mode and run test executable on host linux, which
+  doesn't require making rootfs image (which requires sudo) but have some 
+  limitation for testing.
+- Run on target: use qemu system mode and run test executable on target system,
+  which emulate a full target riscv system.
+
+### 6.1.1. Run test on host
+
+We provides some scripts to make testing easy:
+
+- `test/riscv/bionic/host/run.sh`: run bionic-unit-tests
+- `test/riscv/bionic/host/run-static.sh`: run bionic-unit-tests-static
+- `test/riscv/bionic/host/run-linker.sh`: run linker directly
+
+Some corresponding debug scripts are also provided, so we can run gdb and debug 
+upon testing
+
+- `test/riscv/bionic/host/debug.sh`: debug bionic-unit-tests
+- `test/riscv/bionic/host/debug-static.sh`: debug bionic-unit-tests-static
+- `test/riscv/bionic/host/debug-linker.sh`: debug linker directly
+
+### 6.1.2. Run test on target
+
+#### 6.1.2.1. Make minimal rootfs for testing
 
 ```
 $ cd $AOSP/test/riscv
@@ -161,7 +193,7 @@ $ sudo ./make_rootfs.sh
 ```
 Note, root privilege is required to run this script.
 
-## 6.2. Dump the minimal rootfs
+#### 6.1.2.2. Dump the minimal rootfs
 
 If you make some changes in your minimal system, for example, you have created 
 testing log and want fetch it out.
@@ -175,14 +207,14 @@ Note, root privilege is required to run this script.
 A folder `out/rootfs_dump/` would be created and it contains all that in your 
 minimal system.
 
-## 6.3. Launch the minial system with qemu
+#### 6.1.2.3. Launch the minial system with qemu
 
 ```
 $ cd $AOSP/test/riscv
 $ ./run.sh
 ```
 
-# 7. Run bionic test.
+#### 6.1.2.4. Run bionic test.
 
 Read [bionic's README.md](../../../bionic/README.md) first, specially the 
 section "Running the tests".
