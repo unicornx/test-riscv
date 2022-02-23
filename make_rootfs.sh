@@ -32,6 +32,7 @@ mount -o loop $PATH_OUT/rootfs.img  $PATH_OUT/rootfs
 # ├── dev
 # ├── etc -> /system/etc
 # ├── init -> /system/bin/init (TBD)
+# ├── linkerconfig/ld.config.txt <- create a dummy empty file
 # ├── proc <-- new created
 # ├── sbin <--- copied from busybox/_install/sbin
 # ├── sys  <-- new created

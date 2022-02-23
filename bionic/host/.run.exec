@@ -1,16 +1,4 @@
-if [ ! -d $PATH_LINKERCONFIG ]; then
-    echo "$PATH_LINKERCONFIG does not exist, create it."
-    mkdir -p $PATH_LINKERCONFIG
-fi
-
-if [ -f $PATH_LD_CONFIG_TXT ]; then
-    echo "$PATH_LD_CONFIG_TXT already exist!!!"
-else
-    echo "$PATH_LD_CONFIG_TXT does not exist, create it."
-    touch $PATH_LD_CONFIG_TXT
-fi
-
-echo "=========="
+echo "========== Start Running ......"
 
 # see bionic/linker/linker_debug.h for LINKER_VERBOSITY level
 # LD_DEBUG = 0 will disable trace

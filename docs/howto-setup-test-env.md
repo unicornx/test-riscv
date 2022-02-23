@@ -157,6 +157,9 @@ rootfs.img
 
 ## 6.1. Bionic unit tests
 
+Read [bionic's README.md](../../../bionic/README.md) first, specially the
+section "Running the tests".
+
 Official aosp test requires aosp system is ready and run test with adb. But till
 now, we have not them available, so we have to setup temporary test environment
 by ourselves. Folllowing are description about how to setup and run.
@@ -167,6 +170,8 @@ We have two methods to run bionic tests:
   limitation for testing.
 - Run on target: use qemu system mode and run test executable on target system,
   which emulate a full target riscv system.
+
+Note: before running bionic tests, make sure you have run `mmm bionic` and `mmm external/icu`.
 
 ### 6.1.1. Run test on host
 
@@ -183,6 +188,12 @@ upon testing
 - `test/riscv/bionic/host/debug-static.sh`: debug bionic-unit-tests-static
 - `test/riscv/bionic/host/debug-linker.sh`: debug linker directly
 
+Note: running test on host doesn't support running ALL cases, and only support
+running one case or all cases of one suite. Examples:
+```
+test/riscv/bionic/host/run.sh wctype.wctype_l
+test/riscv/bionic/host/run-static.sh wctype.*
+```
 ### 6.1.2. Run test on target
 
 #### 6.1.2.1. Make minimal rootfs for testing
@@ -215,9 +226,6 @@ $ ./run.sh
 ```
 
 #### 6.1.2.4. Run bionic test.
-
-Read [bionic's README.md](../../../bionic/README.md) first, specially the 
-section "Running the tests".
 
 Press Enter to acitivate the console and go to bionic testing folder. We provide
 scripts for quick launching of bionic tests.

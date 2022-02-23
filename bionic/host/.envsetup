@@ -10,10 +10,46 @@ PATH_LD_CONFIG_TXT=$PATH_LINKERCONFIG/ld.config.txt
 PATH_LINKER=$PATH_SYSROOT/system/bin/bootstrap/linker64
 PATH_EXE=$PATH_SYSROOT/data/nativetest64/bionic-unit-tests/bionic-unit-tests
 PATH_EXE_STATIC=$PATH_SYSROOT/data/nativetest64/bionic-unit-tests-static/bionic-unit-tests-static
+PATH_LIBICU=$PATH_SYSROOT/apex/com.android.i18n/lib64/libicu.so
 
 # we use an empty ld.config.txt, but we use LD_LIBRARY_PATH to help linker
 # to serach for the .so files
 # search /apex/com.android.i18n/lib64/ for libicu.so
 ENV_LD_LIBRARY_PATH=/system/lib64/bootstrap:/apex/com.android.i18n/lib64
+
+# validate and setup
+if [ ! -f $PATH_LINKER ]; then
+    echo "$PATH_LINKER does not exist, create it with \'mmm bionic\'."
+    exit 1
+fi
+
+if [ ! -f $PATH_EXE ]; then
+    echo "$PATH_EXE does not exist, create it with \'mmm bionic\'."
+    exit 1
+fi
+
+if [ ! -f $PATH_EXE_STATIC ]; then
+    echo "$PATH_EXE_STATIC does not exist, create it with \'mmm bionic\'."
+    exit 1
+fi
+
+if [ ! -f $PATH_LIBICU ]; then
+    echo "$PATH_LIBICU does not exist, create it with \'mmm external/icu\'."
+    exit 1
+fi
+
+if [ ! -d $PATH_LINKERCONFIG ]; then
+    echo "$PATH_LINKERCONFIG does not exist, create it."
+    mkdir -p $PATH_LINKERCONFIG
+fi
+
+if [ -f $PATH_LD_CONFIG_TXT ]; then
+    echo "$PATH_LD_CONFIG_TXT already exist!!!"
+else
+    echo "$PATH_LD_CONFIG_TXT does not exist, create it."
+    touch $PATH_LD_CONFIG_TXT
+fi
+
+
 
 GTEST_FILTER=$1

@@ -32,9 +32,13 @@ PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_DATA=$PATH_AOSP_OUT/target/product/generic_
 PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_APEX=$PATH_AOSP_OUT/target/product/generic_riscv64/apex
 PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_SYSTEM=$PATH_AOSP_OUT/target/product/generic_riscv64/system
 
+# validate if any required files are missing
 if [ ! -d $PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_DATA ]; then
-    echo "Make sure you have built AOSP."
+    echo "Make sure you have built with \'mmm bionic\'."
     exit 1
 fi
-
+if [ ! -f $PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_APEX/com.android.i18n/lib64/libicu.so ]; then
+    echo "Make sure you have built with \'mmm external/icu\'."
+    exit 1
+fi
 export PATH="$PATH_QEMU_BIN:$PATH"
