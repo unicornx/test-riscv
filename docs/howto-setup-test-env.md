@@ -23,7 +23,7 @@
 # 1. Precondition
 
 Before continue, we default you have setup AOSP-RISCV development environment 
-following this article ["How to build aosp-riscv"](https://github.com/aosp-riscv/working-group/blob/master/docs/howto-setup-build-env.md).
+following this article ["How to build aosp-riscv"][1].
 
 This document is located under `$AOSP/test/riscv/docs`, where $AOSP is the aosp
 source tree path in your local machine.
@@ -157,7 +157,7 @@ rootfs.img
 
 ## 6.1. Bionic unit tests
 
-Read [bionic's README.md](../../../bionic/README.md) first, specially the
+Read [bionic's README.md][2] first, specially the
 section "Running the tests".
 
 Official aosp test requires aosp system is ready and run test with adb. But till
@@ -262,3 +262,7 @@ For more details on how to use the bionic-unit-tests, run:
 ```
 /tests/bionic # /data/nativetest64/bionic-unit-tests/bionic-unit-tests -h
 ```
+
+
+[1]: https://github.com/aosp-riscv/working-group/blob/master/docs/howto-setup-build-env.md
+[2]: https://android.googlesource.com/platform/bionic/+/refs/heads/master/README.md
