@@ -191,9 +191,11 @@ upon testing
 Note: running test on host doesn't support running ALL cases, and only support
 running one case or all cases of one suite. Examples:
 ```
-test/riscv/bionic/host/run.sh wctype.wctype_l
-test/riscv/bionic/host/run-static.sh wctype.*
+cd $AOSP/test/riscv/bionic/host
+./run.sh wctype.wctype_l
+./run-static.sh wctype.*
 ```
+
 ### 6.1.2. Run test on target
 
 #### 6.1.2.1. Make minimal rootfs for testing

@@ -3,6 +3,8 @@ DEBUG=no
 
 BASE_DIR=$(cd $(dirname $0); pwd -P)
 
+PATH_QEMU_BIN=$BASE_DIR/../../bin/qemu/install/bin
+
 PATH_SYSROOT=$BASE_DIR/../../../../out/target/product/generic_riscv64/symbols
 
 PATH_LINKERCONFIG=$PATH_SYSROOT/linkerconfig
@@ -43,9 +45,7 @@ if [ ! -d $PATH_LINKERCONFIG ]; then
     mkdir -p $PATH_LINKERCONFIG
 fi
 
-if [ -f $PATH_LD_CONFIG_TXT ]; then
-    echo "$PATH_LD_CONFIG_TXT already exist!!!"
-else
+if [ ! -f $PATH_LD_CONFIG_TXT ]; then
     echo "$PATH_LD_CONFIG_TXT does not exist, create it."
     touch $PATH_LD_CONFIG_TXT
 fi

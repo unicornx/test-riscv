@@ -4,7 +4,7 @@ echo "========== Start Running ......"
 # LD_DEBUG = 0 will disable trace
 # LD_LIBRARY_PATH has the highest priority, we use it to work-around the ld.config.txt 
 if [ $DEBUG = "yes" ]; then
-    qemu-riscv64 \
+    $PATH_QEMU_BIN/qemu-riscv64 \
         -g 1234 \
         -L $PATH_SYSROOT \
         -E LD_DEBUG=0 \
@@ -12,7 +12,7 @@ if [ $DEBUG = "yes" ]; then
         $COMMAND_QEMU &
     riscv64-unknown-linux-gnu-gdb $COMMAND_GDB -x ./.gdbinit
 else
-    qemu-riscv64 \
+    $PATH_QEMU_BIN/qemu-riscv64 \
         -L $PATH_SYSROOT \
         -E LD_DEBUG=0 \
         -E LD_LIBRARY_PATH=$ENV_LD_LIBRARY_PATH \
