@@ -3,20 +3,20 @@
 <!-- TOC -->
 
 - [1. Precondition](#1-precondition)
-    - [1.1. Hardware environment](#11-hardware-environment)
-    - [1.2. software dependencies](#12-software-dependencies)
+	- [1.1. Hardware environment](#11-hardware-environment)
+	- [1.2. software dependencies](#12-software-dependencies)
 - [2. compile tools](#2-compile-tools)
 - [3. qemu](#3-qemu)
 - [4. kernel](#4-kernel)
 - [5. rootfs (busybox)](#5-rootfs-busybox)
 - [6. How to use our test tools](#6-how-to-use-our-test-tools)
-    - [6.1. Bionic unit tests](#61-bionic-unit-tests)
-        - [6.1.1. Run test on host](#611-run-test-on-host)
-        - [6.1.2. Run test on target](#612-run-test-on-target)
-            - [6.1.2.1. Make minimal rootfs for testing](#6121-make-minimal-rootfs-for-testing)
-            - [6.1.2.2. Dump the minimal rootfs](#6122-dump-the-minimal-rootfs)
-            - [6.1.2.3. Launch the minial system with qemu](#6123-launch-the-minial-system-with-qemu)
-            - [6.1.2.4. Run bionic test.](#6124-run-bionic-test)
+	- [6.1. Bionic unit tests](#61-bionic-unit-tests)
+		- [6.1.1. Run test on host](#611-run-test-on-host)
+		- [6.1.2. Run test on target](#612-run-test-on-target)
+			- [6.1.2.1. Make minimal rootfs for testing](#6121-make-minimal-rootfs-for-testing)
+			- [6.1.2.2. Dump the minimal rootfs](#6122-dump-the-minimal-rootfs)
+			- [6.1.2.3. Launch the minial system with qemu](#6123-launch-the-minial-system-with-qemu)
+			- [6.1.2.4. Run bionic test.](#6124-run-bionic-test)
 
 <!-- /TOC -->
 
@@ -202,9 +202,8 @@ cd $AOSP/test/riscv/bionic/host
 
 ```
 $ cd $AOSP/test/riscv
-$ sudo ./make_rootfs.sh
+$ ./make_rootfs.sh
 ```
-Note, root privilege is required to run this script.
 
 #### 6.1.2.2. Dump the minimal rootfs
 

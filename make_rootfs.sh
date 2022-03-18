@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [[ $EUID -ne 0 ]]; then
-   echo "Please try again with \"sudo $0\"." 1>&2
-   exit 1
+if ! [ -x "$(command -v mke2fs)" ]; then
+  echo 'Error: mke2fs is not installed.' >&2
+  exit 1
 fi
 
 if [ ! -f ./envsetup ]; then
@@ -11,19 +11,14 @@ if [ ! -f ./envsetup ]; then
 fi
 source ./envsetup
 
-PATH_TEST_BIONIC=$PATH_PRJ/bionic/target
-
 mkdir -p $PATH_OUT
-
-rm -f $PATH_OUT/rootfs.img
-echo "$PATH_OUT/rootfs.img is removed!"
+PATH_IMAGE_FILE=$PATH_OUT/rootfs.img
+rm -f $PATH_IMAGE_FILE
+echo "$PATH_IMAGE_FILE is removed!"
 echo ""
 
-qemu-img create $PATH_OUT/rootfs.img 1g
-chmod 666 $PATH_OUT/rootfs.img
-mkfs.ext4 $PATH_OUT/rootfs.img
-mkdir -p $PATH_OUT/rootfs
-mount -o loop $PATH_OUT/rootfs.img  $PATH_OUT/rootfs
+PATH_ROOT_DIR=$PATH_OUT/rootfs
+mkdir -p $PATH_ROOT_DIR
 
 # rootfs layout
 # ├── apex <--- copied from aosp out/target/product/generic_riscv64/apex/
@@ -47,8 +42,9 @@ mount -o loop $PATH_OUT/rootfs.img  $PATH_OUT/rootfs
 # ├── tests <-- new created
 # └── usr <--- copied from busybox/_install/usr
 
-mkdir -p $PATH_OUT/rootfs
-cd $PATH_OUT/rootfs \
+PATH_TEST_BIONIC=$PATH_PRJ/bionic/target
+
+cd $PATH_ROOT_DIR \
     && cp -r $PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_APEX . \
     \
     && ln -s /system/bin bin \
@@ -81,8 +77,8 @@ cd $PATH_OUT/rootfs \
     && touch ./linkerconfig/ld.config.txt
 
 cd $PATH_PRJ
-touch $PATH_OUT/rootfs/system/etc/init.d/rcS
-cat > $PATH_OUT/rootfs/system/etc/init.d/rcS <<EOF
+touch $PATH_ROOT_DIR/system/etc/init.d/rcS
+cat > $PATH_ROOT_DIR/system/etc/init.d/rcS <<EOF
 #!/bin/sh
 mount -t proc none /proc
 mount -t sysfs none /sys
@@ -91,9 +87,16 @@ ln -sv /proc/self/fd/0 /dev/stdin
 ln -sv /proc/self/fd/1 /dev/stdout
 ln -sv /proc/self/fd/2 /dev/stderr
 EOF
-chmod +x $PATH_OUT/rootfs/system/etc/init.d/rcS
+chmod +x $PATH_ROOT_DIR/system/etc/init.d/rcS
 
-umount $PATH_OUT/rootfs
-rmdir $PATH_OUT/rootfs
+# Create the rootfs image without sudo.
+mke2fs \
+  -d "$PATH_ROOT_DIR" \
+  -t ext4 \
+  "$PATH_IMAGE_FILE" \
+  1g \
+;
 
-echo "$PATH_OUT/rootfs.img is created!"
+rm -rf $PATH_ROOT_DIR
+
+echo "$PATH_IMAGE_FILE is created!"
