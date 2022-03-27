@@ -182,14 +182,15 @@ We provides some scripts to make testing easy:
 - `test/riscv/bionic/host/run-linker.sh`: run linker directly
 
 Some corresponding debug scripts are also provided, so we can run gdb and debug 
-upon testing
+upon testing. **Note**, please configure `test/riscv/bionic/host/.gdbinit` before
+debugging.
 
 - `test/riscv/bionic/host/debug.sh`: debug bionic-unit-tests
 - `test/riscv/bionic/host/debug-static.sh`: debug bionic-unit-tests-static
 - `test/riscv/bionic/host/debug-linker.sh`: debug linker directly
 
-Note: running test on host doesn't support running ALL cases, and only support
-running one case or all cases of one suite. Examples:
+**Note**: running test on host doesn't support running **ALL** cases, and only 
+supports running one case or all cases of one suite. Examples:
 ```
 cd $AOSP/test/riscv/bionic/host
 ./run.sh wctype.wctype_l

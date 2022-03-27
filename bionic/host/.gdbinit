@@ -5,9 +5,9 @@
 #set disassemble-next-line on
 
 # setup debug source path env
-set sysroot /home/u/ws/dev-aosp12/aosp-riscv/out/target/product/generic_riscv64/symbols
-set solib-search-path /home/u/ws/dev-aosp12/aosp-riscv/out/target/product/generic_riscv64/symbols/system/lib64/
-dir /home/u/ws/dev-aosp12/aosp-riscv
+set sysroot /aosp/wangchen/dev-aosp12/aosp-riscv/out/target/product/generic_riscv64/symbols
+set solib-search-path /aosp/wangchen/dev-aosp12/aosp-riscv/out/target/product/generic_riscv64/symbols/system/lib64/
+dir /aosp/wangchen/dev-aosp12/aosp-riscv
 
 #set detach-on-fork off
 
@@ -25,8 +25,8 @@ dir /home/u/ws/dev-aosp12/aosp-riscv
 #b _start_main
 #b layout_static_tls
 #b StaticTlsLayout::reserve
-#b main
-b __linker_init
+b main
+#b __linker_init
 #b __linker_init_post_relocation
 #b bionic/linker/linker_main.cpp:310
 #b bionic/linker/linker.cpp:1516
