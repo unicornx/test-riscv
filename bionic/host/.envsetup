@@ -15,10 +15,25 @@ PATH_EXE=$PATH_SYSROOT/data/nativetest64/bionic-unit-tests/bionic-unit-tests
 PATH_EXE_STATIC=$PATH_SYSROOT/data/nativetest64/bionic-unit-tests-static/bionic-unit-tests-static
 PATH_LIBICU=$PATH_SYSROOT/apex/com.android.i18n/lib64/libicu.so
 
-# we use an empty ld.config.txt, but we use LD_LIBRARY_PATH to help linker
-# to serach for the .so files
-# search /apex/com.android.i18n/lib64/ for libicu.so
-ENV_LD_LIBRARY_PATH=/system/lib64/bootstrap:/apex/com.android.i18n/lib64
+# LD_LIBRARY_PATH has the highest priority for linker to search for .so files,
+# we use it to work-around the ld.config.txt, bcos we use an empty ld.config.txt
+# Search paths:
+# /apex/com.android.i18n/lib64/ for libicu.so
+# /system/lib64/bootstrap for libc.so, libm.so, libdl.so, libdl_android.so
+# /system/lib64 for ld-android.so
+# /data/nativetest64/bionic-loader-test-libs for those test so files
+# readelf -d bionic-unit-tests
+# 0x0000000000000001 (NEEDED)             Shared library: [ld-android.so]
+# 0x0000000000000001 (NEEDED)             Shared library: [libdl_android.so]
+# 0x0000000000000001 (NEEDED)             Shared library: [libdl_preempt_test_1.so]
+# 0x0000000000000001 (NEEDED)             Shared library: [libdl_preempt_test_2.so]
+# 0x0000000000000001 (NEEDED)             Shared library: [libdl_test_df_1_global.so]
+# 0x0000000000000001 (NEEDED)             Shared library: [libtest_elftls_shared_var.so]
+# 0x0000000000000001 (NEEDED)             Shared library: [libtest_elftls_tprel.so]
+# 0x0000000000000001 (NEEDED)             Shared library: [libc.so]
+# 0x0000000000000001 (NEEDED)             Shared library: [libm.so]
+# 0x0000000000000001 (NEEDED)             Shared library: [libdl.so]
+ENV_LD_LIBRARY_PATH=/system/lib64/bootstrap:/system/lib64:/apex/com.android.i18n/lib64:/data/nativetest64/bionic-loader-test-libs
 
 # validate and setup
 if [ ! -f $PATH_LINKER ]; then
