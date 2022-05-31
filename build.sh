@@ -5,3 +5,4 @@ lunch aosp_riscv64-eng
 mmm bionic
 mmm external/icu
 mmm system/netd/client
+mmm system/core/run-as

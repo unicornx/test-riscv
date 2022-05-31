@@ -11,6 +11,7 @@ PATH_SYSROOT=$BASE_DIR/../../../../out/target/product/generic_riscv64/symbols
 PATH_LINKERCONFIG=$PATH_SYSROOT/linkerconfig
 PATH_LD_CONFIG_TXT=$PATH_LINKERCONFIG/ld.config.txt
 PATH_LINKER=$PATH_SYSROOT/system/bin/bootstrap/linker64
+PATH_LINKER2=$PATH_SYSROOT/system/bin/linker64
 PATH_EXE=$PATH_SYSROOT/data/nativetest64/bionic-unit-tests/bionic-unit-tests
 PATH_EXE_STATIC=$PATH_SYSROOT/data/nativetest64/bionic-unit-tests-static/bionic-unit-tests-static
 PATH_LIBICU=$PATH_SYSROOT/apex/com.android.i18n/lib64/libicu.so
@@ -39,6 +40,9 @@ ENV_LD_LIBRARY_PATH=/system/lib64/bootstrap:/system/lib64:/apex/com.android.i18n
 if [ ! -f $PATH_LINKER ]; then
     echo "$PATH_LINKER does not exist, create it with \'mmm bionic\'."
     exit 1
+elif [ ! -f $PATH_LINKER2 ]; then
+    echo "$PATH_LINKER2 does not exist, cp it from $PATH_LINKER."
+    cp $PATH_LINKER $PATH_LINKER2
 fi
 
 if [ ! -f $PATH_EXE ]; then
