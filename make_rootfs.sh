@@ -28,6 +28,7 @@ mkdir -p $PATH_ROOT_DIR
 # ├── etc -> /system/etc
 # ├── init -> /system/bin/init (TBD)
 # ├── linkerconfig/ld.config.txt <- create a dummy empty file
+# |   └── com.android.runtime/ld.config.txt <- create a dummy empty file
 # ├── proc <-- new created
 # ├── sbin <--- copied from busybox/_install/sbin
 # ├── sys  <-- new created
@@ -74,7 +75,9 @@ cd $PATH_ROOT_DIR \
     && cp -r $PATH_BUSYBOX_INSTALL/linuxrc . \
     \
     && mkdir -p linkerconfig \
-    && touch ./linkerconfig/ld.config.txt
+    && mkdir -p linkerconfig/com.android.runtime \
+    && touch ./linkerconfig/ld.config.txt \
+    && touch ./linkerconfig/com.android.runtime/ld.config.txt
 
 cd $PATH_PRJ
 touch $PATH_ROOT_DIR/system/etc/init.d/rcS
