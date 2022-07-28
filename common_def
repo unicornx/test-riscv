@@ -1,0 +1,6 @@
+UBUNTU_VER=$(lsb_release --release | cut -f2)
+
+AOSP_PRODUCT=generic_riscv64
+
+export AOSP_PATH=/aosp/wangchen/dev-aosp12/aosp-riscv
+export AOSP_PRODUCT_OUT_PATH=$AOSP_PATH/out/target/product/emulator_riscv64

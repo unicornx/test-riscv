@@ -3,11 +3,14 @@ DEBUG=no
 
 BASE_DIR=$(cd $(dirname $0); pwd -P)
 
-UBUNTU_VER=$(lsb_release --release | cut -f2)
+source  $BASE_DIR/../../common_def
+#echo $UBUNTU_VER
+#echo $AOSP_PRODUCT
+
 PATH_QEMU_BIN=$BASE_DIR/../../bin/qemu/install-$UBUNTU_VER/bin
 PATH_GNUTOOLS_BIN=$BASE_DIR/../../bin/tools/bin
 
-PATH_SYSROOT=$BASE_DIR/../../../../out/target/product/emulator_riscv64/symbols
+PATH_SYSROOT=$BASE_DIR/../../../../out/target/product/$AOSP_PRODUCT/symbols
 
 PATH_LINKERCONFIG=$PATH_SYSROOT/linkerconfig
 PATH_LD_CONFIG_TXT=$PATH_LINKERCONFIG/ld.config.txt

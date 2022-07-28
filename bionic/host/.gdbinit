@@ -8,6 +8,9 @@
 set sysroot /aosp/wangchen/dev-aosp12/aosp-riscv/out/target/product/emulator_riscv64/symbols
 set solib-search-path /aosp/wangchen/dev-aosp12/aosp-riscv/out/target/product/emulator_riscv64/symbols/system/lib64/
 dir /aosp/wangchen/dev-aosp12/aosp-riscv
+#set sysroot /home/u/ws/dev-aosp12/aosp-riscv/out/target/product/emulator_riscv64/symbols
+#set solib-search-path /home/u/ws/dev-aosp12/aosp-riscv/out/target/product/emulator_riscv64/symbols/system/lib64/
+#dir /home/u/ws/dev-aosp12/aosp-riscv
 
 #set detach-on-fork off
 
