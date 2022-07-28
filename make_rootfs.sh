@@ -21,7 +21,9 @@ PATH_ROOT_DIR=$PATH_OUT/rootfs
 mkdir -p $PATH_ROOT_DIR
 
 # rootfs layout
-# ├── apex <--- copied from aosp out/target/product/generic_riscv64/apex/
+# Note: PATH_AOSP_OUT is defined in envsetup
+# /
+# ├── apex <--- copied from aosp $PATH_AOSP_OUT/apex/
 # ├── bin -> /system/bin
 # ├── data <- mounted as data partition, now created as folder
 # ├── dev
@@ -32,7 +34,7 @@ mkdir -p $PATH_ROOT_DIR
 # ├── proc <-- new created
 # ├── sbin <--- copied from busybox/_install/sbin
 # ├── sys  <-- new created
-# ├── system <-- copied from aosp out/target/product/generic_riscv64/system
+# ├── system <-- copied from aosp $PATH_AOSP_OUT/system
 # |   ├── apex
 # |   ├── bin <--- copy files from busybox/_install/bin
 # |   ├── etc

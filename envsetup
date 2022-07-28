@@ -4,7 +4,8 @@ cd "$(dirname $0)"
 PATH_PRJ=`pwd`
 #echo $PATH_PRJ
 
-PATH_QEMU_BIN=$PATH_PRJ/bin/qemu/install/bin
+UBUNTU_VER=$(lsb_release --release | cut -f2)
+PATH_QEMU_BIN=$PATH_PRJ/bin/qemu/install-$UBUNTU_VER/bin
 if [ ! -f $PATH_QEMU_BIN/qemu-system-riscv64 ]; then
    echo "Make sure PATH_QEMU_BIN points to the correct path where qemu binaries are installed."
    echo "PATH_QEMU_BIN is: $PATH_QEMU_BIN"
@@ -26,11 +27,11 @@ if [ ! -f $PATH_BUSYBOX_INSTALL/bin/busybox ]; then
 fi
 
 PATH_OUT=$PATH_PRJ/out
-PATH_AOSP_OUT=$PATH_PRJ/../../out
+PATH_AOSP_OUT=$PATH_PRJ/../../out/target/product/emulator_riscv64
 
-PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_DATA=$PATH_AOSP_OUT/target/product/generic_riscv64/data
-PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_APEX=$PATH_AOSP_OUT/target/product/generic_riscv64/apex
-PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_SYSTEM=$PATH_AOSP_OUT/target/product/generic_riscv64/system
+PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_DATA=$PATH_AOSP_OUT/data
+PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_APEX=$PATH_AOSP_OUT/apex
+PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_SYSTEM=$PATH_AOSP_OUT/system
 
 # validate if any required files are missing
 if [ ! -d $PATH_AOSP_OUT_TARGET_PRODUCT_RISCV64_DATA ]; then

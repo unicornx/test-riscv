@@ -5,8 +5,8 @@
 #set disassemble-next-line on
 
 # setup debug source path env
-set sysroot /aosp/wangchen/dev-aosp12/aosp-riscv/out/target/product/generic_riscv64/symbols
-set solib-search-path /aosp/wangchen/dev-aosp12/aosp-riscv/out/target/product/generic_riscv64/symbols/system/lib64/
+set sysroot /aosp/wangchen/dev-aosp12/aosp-riscv/out/target/product/emulator_riscv64/symbols
+set solib-search-path /aosp/wangchen/dev-aosp12/aosp-riscv/out/target/product/emulator_riscv64/symbols/system/lib64/
 dir /aosp/wangchen/dev-aosp12/aosp-riscv
 
 #set detach-on-fork off
