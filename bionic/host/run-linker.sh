@@ -2,10 +2,10 @@
 
 # run linker directly
 
-source ./.envsetup
+source $ANDROID_BUILD_TOP/test/test-riscv/bionic/host/.envsetup
 
 COMMAND_QEMU="$PATH_LINKER $PATH_EXE --no_isolate --gtest_filter=$GTEST_FILTER"
 #COMMAND_QEMU="$PATH_LINKER --list $PATH_EXE"
 
-source ./.run.exec
+source $TEST_RISCV/bionic/host/.run.exec
 

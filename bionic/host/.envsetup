@@ -1,16 +1,18 @@
+PATH_QEMU_BIN=/home/u/bin/qemu/bin
+PATH_GNUTOOLS_BIN=/home/u/bin/riscv/bin
+
 # default no debug
 DEBUG=no
 
-BASE_DIR=$(cd $(dirname $0); pwd -P)
+if [[ -z "${ANDROID_BUILD_TOP}" ]]; then
+  echo "AOSP env has not been setup, which is required for riscv test!!!"
+  exit 1
+fi
 
-source  $BASE_DIR/../../common_def
-#echo $UBUNTU_VER
-#echo $AOSP_PRODUCT
+TEST_RISCV=$ANDROID_BUILD_TOP/test/test-riscv
+export TEST_RISCV
 
-PATH_QEMU_BIN=$BASE_DIR/../../bin/qemu/install-$UBUNTU_VER/bin
-PATH_GNUTOOLS_BIN=$BASE_DIR/../../bin/tools/bin
-
-PATH_SYSROOT=$BASE_DIR/../../../../out/target/product/$AOSP_PRODUCT/symbols
+PATH_SYSROOT=$ANDROID_PRODUCT_OUT/symbols
 
 PATH_LINKERCONFIG=$PATH_SYSROOT/linkerconfig
 PATH_LD_CONFIG_TXT=$PATH_LINKERCONFIG/ld.config.txt
@@ -38,7 +40,17 @@ PATH_LIBICU=$PATH_SYSROOT/apex/com.android.i18n/lib64/libicu.so
 # 0x0000000000000001 (NEEDED)             Shared library: [libc.so]
 # 0x0000000000000001 (NEEDED)             Shared library: [libm.so]
 # 0x0000000000000001 (NEEDED)             Shared library: [libdl.so]
-ENV_LD_LIBRARY_PATH=/system/lib64/bootstrap:/system/lib64:/apex/com.android.i18n/lib64:/data/nativetest64/bionic-loader-test-libs
+ENV_LD_LIBRARY_PATH=\
+/system/lib64/bootstrap:\
+/system/lib64:\
+/apex/com.android.i18n/lib64:\
+/data/nativetest64/bionic-loader-test-libs
+
+GDB_SOLIB_SEARCH_PATH=\
+$PATH_SYSROOT/system/lib64/bootstrap:\
+$PATH_SYSROOT/system/lib64:\
+$PATH_SYSROOT/apex/com.android.i18n/lib64:\
+$PATH_SYSROOT/data/nativetest64/bionic-loader-test-libs
 
 # validate and setup
 if [ ! -f $PATH_LINKER ]; then

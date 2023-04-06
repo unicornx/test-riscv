@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ./.envsetup
+source $ANDROID_BUILD_TOP/test/test-riscv/bionic/host/.envsetup
 
 COMMAND_QEMU="$PATH_EXE --no_isolate --gtest_filter=$GTEST_FILTER"
 
-source ./.run.exec
+source $TEST_RISCV/bionic/host/.run.exec
