@@ -14,7 +14,7 @@ if [ $DEBUG = "yes" ]; then
         -ex="set sysroot $PATH_SYSROOT" \
         -ex="set solib-search-path $GDB_SOLIB_SEARCH_PATH" \
         -ex="dir $ANDROID_BUILD_TOP" \
-        -x $TEST_RISCV/bionic/host/.gdbinit
+        -x $PATH_BASE/bionic/host/.gdbinit
 else
     $PATH_QEMU_BIN/qemu-riscv64 \
         -L $PATH_SYSROOT \
